@@ -1,0 +1,746 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kyle Somers — Sports Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--red:#CC0000;--red-dark:#8B0000;--red-glow:rgba(204,0,0,.35);--black:#0a0a0a;--dark:#111;--mid:#1a1a1a;--card:#181818;--white:#f5f5f5;--gray:#aaa;--light-gray:#e0e0e0;}
+  *{margin:0;padding:0;box-sizing:border-box;} html{scroll-behavior:smooth;}
+  body{background:var(--black);color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden;}
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:18px 48px;background:rgba(10,10,10,.93);backdrop-filter:blur(12px);border-bottom:1px solid rgba(204,0,0,.2);}
+  .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:3px;} .nav-logo span{color:var(--red);}
+  .nav-links{display:flex;gap:32px;list-style:none;}
+  .nav-links a{font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gray);text-decoration:none;transition:color .2s;}
+  .nav-links a:hover{color:var(--red);}
+  #hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 8vw;position:relative;overflow:hidden;}
+  .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(140,0,0,.18) 0%,transparent 70%),linear-gradient(160deg,#0a0a0a 0%,#111 50%,#0d0d0d 100%);}
+  .hero-stripe{position:absolute;right:-60px;top:0;bottom:0;width:520px;background:repeating-linear-gradient(-12deg,transparent,transparent 38px,rgba(204,0,0,.04) 38px,rgba(204,0,0,.04) 40px);}
+  .hero-accent-line{position:absolute;left:0;top:50%;transform:translateY(-50%);width:4px;height:40%;background:linear-gradient(to bottom,transparent,var(--red),transparent);}
+  .hero-content{position:relative;z-index:2;}
+  .hero-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:5px;text-transform:uppercase;color:var(--red);margin-bottom:16px;opacity:0;animation:fadeUp .7s ease .2s forwards;}
+  .hero-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(5rem,12vw,10rem);line-height:.9;letter-spacing:2px;opacity:0;animation:fadeUp .8s ease .35s forwards;}
+  .hero-name .last{color:var(--red);display:block;}
+  .hero-tagline{font-size:clamp(.95rem,2vw,1.15rem);font-weight:300;color:var(--gray);max-width:560px;margin-top:20px;line-height:1.75;opacity:0;animation:fadeUp .8s ease .5s forwards;}
+  .hero-pills{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap;opacity:0;animation:fadeUp .8s ease .65s forwards;}
+  .pill{font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:6px 16px;border:1px solid rgba(204,0,0,.5);color:var(--red);border-radius:2px;}
+  .hero-ctas{display:flex;gap:16px;margin-top:40px;opacity:0;animation:fadeUp .8s ease .8s forwards;}
+  .btn-primary{font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:14px 32px;background:var(--red);color:white;text-decoration:none;transition:background .2s,transform .2s;}
+  .btn-primary:hover{background:var(--red-dark);transform:translateY(-2px);}
+  .btn-secondary{font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:14px 32px;border:1px solid rgba(255,255,255,.25);color:var(--white);text-decoration:none;transition:border-color .2s,transform .2s,color .2s;}
+  .btn-secondary:hover{border-color:var(--red);color:var(--red);transform:translateY(-2px);}
+  .hero-scroll{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fadeIn 1s ease 1.2s forwards;}
+  .scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,transparent,var(--red));animation:scrollPulse 1.8s ease-in-out infinite;}
+  .scroll-label{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--gray);}
+  .champ-banner{background:linear-gradient(135deg,#0d0d0d 0%,#1a0000 50%,#0d0d0d 100%);border-top:1px solid rgba(204,0,0,.3);border-bottom:1px solid rgba(204,0,0,.3);padding:40px 8vw;display:flex;align-items:center;justify-content:space-around;gap:40px;flex-wrap:wrap;position:relative;overflow:hidden;}
+  .champ-banner::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 20px,rgba(204,0,0,.02) 20px,rgba(204,0,0,.02) 22px);}
+  .champ-stat{text-align:center;position:relative;z-index:1;}
+  .champ-num{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,6vw,5rem);color:var(--red);line-height:1;text-shadow:0 0 30px rgba(204,0,0,.5);}
+  .champ-label{font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gray);margin-top:4px;}
+  .champ-sub{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;color:rgba(204,0,0,.6);letter-spacing:1px;margin-top:4px;}
+  .champ-divider{width:1px;height:70px;background:rgba(204,0,0,.3);}
+  .champ-center{text-align:center;position:relative;z-index:1;}
+  .champ-center-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.4rem,3vw,2rem);letter-spacing:3px;}
+  .champ-center-sub{font-family:'Barlow Condensed',sans-serif;font-size:.78rem;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-top:6px;}
+  section{padding:100px 8vw;}
+  .section-header{display:flex;align-items:baseline;gap:20px;margin-bottom:48px;}
+  .section-num{font-family:'Bebas Neue',sans-serif;font-size:.9rem;color:var(--red);letter-spacing:2px;}
+  .section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,5vw,3.5rem);letter-spacing:2px;}
+  .section-line{flex:1;height:1px;background:linear-gradient(to right,rgba(204,0,0,.5),transparent);}
+  #about{background:var(--dark);}
+  .about-intro{overflow:hidden;}
+  .about-photo{float:left;width:260px;aspect-ratio:2/3;object-fit:cover;object-position:top;margin:4px 40px 24px 0;border-top:3px solid var(--red);filter:grayscale(15%);}
+  .about-intro p{font-size:1.05rem;font-weight:300;line-height:1.85;color:#ccc;margin-bottom:20px;}
+  .about-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin:48px 0 40px;}
+  .about-bottom{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
+  .stat-card{padding:24px;border-left:3px solid var(--red);background:var(--mid);}
+  .stat-num{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;color:var(--red);line-height:1;}
+  .stat-label{font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-top:4px;}
+  .about-skills h3{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:20px;}
+  .skill-item{margin-bottom:18px;}
+  .skill-head{display:flex;justify-content:space-between;font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--light-gray);margin-bottom:6px;}
+  .skill-bar-bg{height:3px;background:var(--mid);border-radius:2px;overflow:hidden;}
+  .skill-bar-fill{height:100%;background:linear-gradient(to right,var(--red-dark),var(--red));border-radius:2px;transform:scaleX(0);transform-origin:left;transition:transform 1s ease;}
+  .skill-bar-fill.animated{transform:scaleX(1);}
+  .honors-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:32px;}
+  .honor-badge{display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--card);border-left:2px solid var(--red);}
+  .honor-dot{width:6px;height:6px;border-radius:50%;background:var(--red);flex-shrink:0;}
+  .honor-text{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:600;letter-spacing:.5px;color:var(--light-gray);}
+  /* TABS */
+  #football{background:var(--black);}
+  .tab-nav{display:flex;gap:0;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:40px;flex-wrap:wrap;}
+  .tab-btn{font-family:'Barlow Condensed',sans-serif;font-size:.82rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;padding:14px 28px;background:none;color:var(--gray);border:none;border-bottom:3px solid transparent;cursor:pointer;transition:color .2s,border-color .2s;margin-bottom:-1px;}
+  .tab-btn.active{color:var(--red);border-bottom-color:var(--red);}
+  .tab-btn:hover{color:var(--white);}
+  .tab-panel{display:none;} .tab-panel.active{display:block;}
+  /* Sport section headers inside tabs */
+  .sport-header{display:flex;align-items:center;gap:16px;margin-bottom:32px;margin-top:8px;}
+  .sport-tag{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:2px;color:var(--white);}
+  .sport-tag span{color:var(--red);}
+  .sport-divider{flex:1;height:1px;background:linear-gradient(to right,rgba(204,0,0,.4),transparent);}
+  /* GALLERY */
+  .gallery-filter{display:flex;gap:12px;margin-bottom:32px;flex-wrap:wrap;}
+  .filter-btn{font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:8px 20px;border:1px solid rgba(255,255,255,.15);background:none;color:var(--gray);cursor:pointer;transition:all .2s;}
+  .filter-btn.active,.filter-btn:hover{border-color:var(--red);color:var(--red);background:rgba(204,0,0,.06);}
+  .gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+  .gallery-item{position:relative;overflow:hidden;cursor:pointer;background:var(--mid);aspect-ratio:3/4;}
+  .gallery-item.featured{grid-column:span 2;aspect-ratio:3/2;}
+  .gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;display:block;}
+  .gallery-item:hover img{transform:scale(1.06);}
+  .gallery-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,transparent 55%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:16px;}
+  .gallery-item:hover .gallery-overlay{opacity:1;}
+  .gallery-label{font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:white;}
+  .gallery-badge{position:absolute;top:10px;left:10px;font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:3px 10px;background:var(--badge-bg, var(--red));color:white;}
+  /* Sport section separator in Other tab */
+  .sport-section{margin-bottom:64px;}
+  /* MANAGEMENT */
+  #management{background:var(--dark);}
+  .exp-layout{display:grid;grid-template-columns:1fr 2fr;gap:12px;align-items:start;}
+  .exp-collage{columns:4;column-gap:6px;position:sticky;top:100px;align-self:stretch;}
+  .collage-item{break-inside:avoid;margin-bottom:6px;overflow:hidden;background:var(--mid);}
+  .collage-item img{width:100%;display:block;object-fit:cover;image-orientation:from-image;transition:transform .45s ease;}
+  .collage-item:hover img{transform:scale(1.05);}
+  .timeline{position:relative;padding-left:48px;}
+  .timeline::before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:1px;background:linear-gradient(to bottom,var(--red),rgba(204,0,0,.1));}
+  .timeline-item{position:relative;margin-bottom:48px;}
+  .timeline-item::before{content:'';position:absolute;left:-52px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--red);box-shadow:0 0 12px var(--red-glow);}
+  .timeline-date{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:6px;}
+  .timeline-role{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:1px;margin-bottom:2px;}
+  .timeline-org{font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:600;color:var(--gray);letter-spacing:1px;margin-bottom:12px;}
+  .timeline-desc{font-size:.92rem;font-weight:300;color:#bbb;line-height:1.75;max-width:640px;}
+  .edu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px;}
+  .edu-card{padding:32px;background:var(--mid);border-top:3px solid var(--red);position:relative;overflow:hidden;}
+  .edu-card::after{content:'';position:absolute;bottom:-30px;right:-30px;width:100px;height:100px;border-radius:50%;background:rgba(204,0,0,.06);}
+  .edu-degree{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:8px;}
+  .edu-school{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:1px;line-height:1.2;margin-bottom:8px;}
+  .edu-years{font-family:'Barlow Condensed',sans-serif;font-size:.78rem;color:var(--gray);letter-spacing:1px;margin-bottom:16px;}
+  .edu-gpa{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--red);}
+  .edu-gpa-label{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;color:var(--gray);letter-spacing:2px;text-transform:uppercase;}
+  /* CONTACT */
+  #contact{background:var(--black);border-top:1px solid rgba(204,0,0,.15);}
+  .contact-layout{display:grid;grid-template-columns:1fr 1.4fr;gap:80px;align-items:start;}
+  .contact-info h3{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:1px;margin-bottom:16px;}
+  .contact-info p{font-size:.95rem;font-weight:300;color:var(--gray);line-height:1.75;margin-bottom:32px;}
+  .contact-detail{display:flex;align-items:center;gap:14px;margin-bottom:16px;}
+  .contact-icon{width:36px;height:36px;border:1px solid rgba(204,0,0,.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .contact-icon svg{width:14px;height:14px;fill:var(--red);}
+  .contact-val{font-family:'Barlow Condensed',sans-serif;font-size:.9rem;letter-spacing:1px;color:var(--light-gray);}
+  .resume-download{display:inline-flex;align-items:center;gap:12px;margin-top:28px;padding:14px 28px;border:1px solid var(--red);color:var(--red);text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;transition:background .2s,color .2s;}
+  .resume-download:hover{background:var(--red);color:white;}
+  .contact-form{display:flex;flex-direction:column;gap:16px;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .form-group{display:flex;flex-direction:column;gap:6px;}
+  .form-group label{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gray);}
+  .form-group input,.form-group textarea,.form-group select{background:var(--mid);border:1px solid rgba(255,255,255,.08);color:var(--white);padding:12px 16px;font-family:'Barlow',sans-serif;font-size:.9rem;outline:none;transition:border-color .2s;resize:none;}
+  .form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--red);}
+  .form-group textarea{min-height:120px;} .form-group select option{background:var(--mid);}
+  .form-submit{margin-top:8px;padding:14px 40px;background:var(--red);color:white;border:none;font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:background .2s;align-self:flex-start;}
+  .form-submit:hover{background:var(--red-dark);}
+  footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.05);padding:28px 8vw;display:flex;justify-content:space-between;align-items:center;}
+  .footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:3px;color:var(--gray);} .footer-logo span{color:var(--red);}
+  .footer-copy{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;letter-spacing:1px;color:rgba(255,255,255,.2);}
+  .lightbox{display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,.95);justify-content:center;align-items:center;}
+  .lightbox.open{display:flex;}
+  .lightbox img{max-width:90vw;max-height:90vh;object-fit:contain;}
+  .lightbox-close{position:fixed;top:24px;right:32px;font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--gray);cursor:pointer;letter-spacing:2px;transition:color .2s;}
+  .lightbox-close:hover{color:var(--red);}
+  .lightbox-nav{position:fixed;top:50%;transform:translateY(-50%);font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:var(--gray);cursor:pointer;padding:20px;transition:color .2s;user-select:none;}
+  .lightbox-nav:hover{color:var(--red);} .lightbox-prev{left:20px;} .lightbox-next{right:20px;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  @keyframes scrollPulse{0%,100%{opacity:.3}50%{opacity:1}}
+  .reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease;}
+  .reveal.visible{opacity:1;transform:none;}
+  /* HAMBURGER */
+  .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none;}
+  .hamburger span{display:block;width:24px;height:2px;background:var(--white);transition:transform .3s,opacity .3s;}
+  .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .hamburger.open span:nth-child(2){opacity:0;}
+  .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+  /* TABLET */
+  @media(max-width:900px){
+    .gallery-grid{grid-template-columns:repeat(3,1fr);}
+    .edu-grid{grid-template-columns:repeat(2,1fr);}
+    .contact-layout{grid-template-columns:1fr;gap:48px;}
+    .exp-collage{columns:3;}
+  }
+  /* MOBILE — 390px CSS = 1170px physical px at 3x DPR (iPhone 12/13/14 Pro Max portrait) */
+  @media(max-width:480px){
+    nav{padding:14px 20px;}
+    .nav-links{display:none;position:fixed;inset:0;top:58px;background:rgba(10,10,10,.98);flex-direction:column;align-items:center;justify-content:center;gap:36px;z-index:99;}
+    .nav-links.open{display:flex;}
+    .nav-links a{font-size:1.2rem;letter-spacing:3px;}
+    .hamburger{display:flex;}
+    #hero{padding:0 5vw;padding-top:80px;min-height:100svh;}
+    .hero-eyebrow{font-size:.7rem;letter-spacing:2px;}
+    .hero-name{font-size:clamp(3.5rem,18vw,5rem);}
+    .hero-tagline{font-size:.95rem;margin-top:14px;}
+    .hero-pills{gap:8px;margin-top:18px;}
+    .pill{font-size:.68rem;padding:5px 10px;}
+    .hero-ctas{flex-direction:column;align-items:stretch;margin-top:24px;gap:12px;}
+    .btn-primary,.btn-secondary{text-align:center;padding:14px 20px;}
+    .hero-scroll{display:none;}
+    .champ-banner{padding:24px 5vw;gap:16px;justify-content:center;}
+    .champ-divider{display:none;}
+    .champ-num{font-size:2.8rem;}
+    .champ-label{letter-spacing:1px;}
+    section{padding:52px 5vw;}
+    .section-header{gap:12px;margin-bottom:28px;}
+    .about-grid{grid-template-columns:1fr;gap:36px;}
+    .about-stats{grid-template-columns:1fr 1fr;}
+    .stat-num{font-size:2.2rem;}
+    .honors-grid{grid-template-columns:1fr;}
+    .tab-nav{overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;}
+    .tab-btn{padding:10px 12px;font-size:.72rem;letter-spacing:1.5px;white-space:nowrap;}
+    .gallery-grid{grid-template-columns:1fr;gap:8px;}
+    .gallery-item.featured{grid-column:span 1;aspect-ratio:3/2;}
+    .edu-grid{grid-template-columns:1fr;}
+    .contact-layout{grid-template-columns:1fr;gap:36px;}
+    .form-row{grid-template-columns:1fr;}
+    .form-submit{width:100%;text-align:center;}
+    footer{flex-direction:column;gap:10px;text-align:center;padding:20px 5vw;}
+    .exp-layout{grid-template-columns:1fr;}
+    .exp-collage{columns:2;position:sticky;top:60px;}
+    .timeline{padding-left:28px;}
+    .timeline-item::before{left:-32px;}
+    .lightbox-nav{font-size:1.8rem;padding:12px;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">K<span>.</span>SOMERS</div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about" onclick="closeNav()">About</a></li>
+    <li><a href="#football" onclick="closeNav()">Design Work</a></li>
+    <li><a href="#management" onclick="closeNav()">Experience</a></li>
+    <li><a href="#contact" onclick="closeNav()">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg"></div><div class="hero-stripe"></div><div class="hero-accent-line"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Sports Management &amp; Graphic Design</p>
+    <h1 class="hero-name"><span class="first">KYLE</span><span class="last">SOMERS</span></h1>
+    <p class="hero-tagline">Asst. Sports Information Director &amp; Graphic Designer at Grand View University — bringing some of the most decorated programs in NAIA history to life through elite visual storytelling.</p>
+    <div class="hero-pills">
+      <span class="pill">21x NAIA Champions</span>
+      <span class="pill">28 Athletic Programs</span>
+      <span class="pill">MS Sport Management</span>
+      <span class="pill">GPA 3.92</span>
+    </div>
+    <div class="hero-ctas">
+      <a href="#football" class="btn-primary">View My Work</a>
+      <a href="#contact" class="btn-secondary">Get In Touch</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div><span class="scroll-label">Scroll</span></div>
+</section>
+
+<div class="champ-banner reveal">
+  <div class="champ-center"><div class="champ-center-title">&#127942; Dynasty Built Here &#127942;</div><div class="champ-center-sub">Designed the graphics. Lived every moment.</div></div>
+  <div class="champ-divider"></div>
+  <div class="champ-stat"><div class="champ-num">21x</div><div class="champ-label">NAIA National Championships</div><div class="champ-sub">Grand View University All-Time</div></div>
+  <div class="champ-divider"></div>
+  <div class="champ-stat"><div class="champ-num">6x</div><div class="champ-label">Titles During My Time</div><div class="champ-sub">at Grand View University</div></div>
+  <div class="champ-divider"></div>
+  <div class="champ-stat"><div class="champ-num">3x</div><div class="champ-label">Championships This Year</div><div class="champ-sub">Football · Soccer · Wrestling · 2025</div></div>
+</div>
+
+<section id="about">
+  <div class="section-header reveal"><span class="section-num">01</span><h2 class="section-title">About Me</h2><div class="section-line"></div></div>
+  <div class="about-intro reveal">
+    <img src=".\Pictures Good\Kyle_Somers_-1.jpg" alt="Kyle Somers" class="about-photo">
+    <p>I'm Kyle Somers — a graphic designer and sports management professional serving as Asst. Sports Information Director &amp; Graphic Designer at Grand View University. I create visuals for 28 athletic programs and help tell the story of some of the most dominant programs in NAIA history.</p>
+    <p>Grand View has won 21 NAIA National Championships — 6 during my time at the university, including 3 in 2025-2026 alone across football, soccer, and wrestling. I designed the complete gameday graphic series for the 2025 football season and created award, event, and milestone graphics across multiple sports programs.</p>
+    <p>My work lives at the intersection of athletic storytelling, brand identity, and operational excellence — every piece built to generate energy and represent a championship-caliber program.</p>
+  </div>
+  <div class="about-stats reveal">
+    <div class="stat-card"><div class="stat-num">21x</div><div class="stat-label">NAIA Natl. Championships</div></div>
+    <div class="stat-card"><div class="stat-num">28</div><div class="stat-label">Athletic Programs</div></div>
+    <div class="stat-card"><div class="stat-num">3.92</div><div class="stat-label">Graduate GPA</div></div>
+    <div class="stat-card"><div class="stat-num">6x</div><div class="stat-label">Titles In My Time</div></div>
+  </div>
+  <div class="about-bottom">
+    <div class="about-skills reveal">
+      <h3>Core Skills</h3>
+      <div class="skill-item"><div class="skill-head"><span>Graphic Design (Adobe Photoshop)</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:100%"></div></div></div>
+      <div class="skill-item"><div class="skill-head"><span>Sports Information / SID</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:100%"></div></div></div>
+      <div class="skill-item"><div class="skill-head"><span>Athletics Game Management</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:100%"></div></div></div>
+      <div class="skill-item"><div class="skill-head"><span>Event Operations</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:100%"></div></div></div>
+      <div class="skill-item"><div class="skill-head"><span>Sponsorships &amp; Fundraising</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:100%"></div></div></div>
+      <div class="skill-item"><div class="skill-head"><span>Statistics &amp; Media Relations</span></div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:100%"></div></div></div>
+    </div>
+    <div class="honors-grid reveal">
+      <div class="honor-badge"><div class="honor-dot"></div><span class="honor-text">Men's Scholar Athlete Nominee</span></div>
+      <div class="honor-badge"><div class="honor-dot"></div><span class="honor-text">Athletic Director's Leadership Award</span></div>
+      <div class="honor-badge"><div class="honor-dot"></div><span class="honor-text">Andy Seminick Sportsmanship Award</span></div>
+      <div class="honor-badge"><div class="honor-dot"></div><span class="honor-text">Men's Golf Co-Captain, FIT</span></div>
+      <div class="honor-badge"><div class="honor-dot"></div><span class="honor-text">SAAC Golf Representative</span></div>
+      <div class="honor-badge"><div class="honor-dot"></div><span class="honor-text">ASA Athletic Dept. Liaison</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- DESIGN WORK -->
+<section id="football">
+  <div class="section-header reveal"><span class="section-num">02</span><h2 class="section-title">Design Work</h2><div class="section-line"></div></div>
+
+  <!-- TOP TABS: Football / Other -->
+  <div class="tab-nav reveal" id="sportTabs">
+    <button class="tab-btn active" data-tab="footballTab">Football</button>
+    <button class="tab-btn" data-tab="otherTab">Other</button>
+  </div>
+
+  <!-- ── FOOTBALL TAB ── -->
+  <div class="tab-panel active" id="footballTab">
+    <div class="tab-nav" id="footballSubTabs" style="margin-bottom:40px;border-color:rgba(255,255,255,.05);">
+      <button class="tab-btn active" data-tab="gamedayPanel">Gameday Graphics</button>
+      <button class="tab-btn" data-tab="awardPanel">Award Graphics</button>
+    </div>
+
+    <div class="tab-panel active" id="gamedayPanel">
+      <div class="gallery-filter">
+        <button class="filter-btn active" data-filter="all" data-grid="gamedayGrid">All</button>
+        <button class="filter-btn" data-filter="regular" data-grid="gamedayGrid">Regular Season</button>
+        <button class="filter-btn" data-filter="playoffs" data-grid="gamedayGrid">Playoffs</button>
+        <button class="filter-btn" data-filter="championship" data-grid="gamedayGrid">Championship</button>
+      </div>
+      <div class="gallery-grid" id="gamedayGrid">
+    <div class="gallery-item featured" data-cat="regular" data-index="gd0" style="--badge-bg:var(--red)">
+      <img src=".\Pictures Good\Week 1 Gameday - Benedictine.png" alt="Week 1 — vs. Benedictine" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">Week 1 — vs. Benedictine</span></div>
+      <span class="gallery-badge">Week 1</span>
+    </div>
+    <div class="gallery-item" data-cat="regular" data-index="gd1" style="--badge-bg:var(--red)">
+      <img src=".\Pictures Good\Week 2 vs Missouri Baptist.png" alt="Week 2 — Missouri Baptist" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">Week 2 — Missouri Baptist</span></div>
+      <span class="gallery-badge">Week 2</span>
+    </div>
+    <div class="gallery-item" data-cat="regular" data-index="gd2" style="--badge-bg:var(--red)">
+      <img src=".\Pictures Good\Week 3 Game Day final.png" alt="Week 3 — Baker University" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">Week 3 — Baker University</span></div>
+      <span class="gallery-badge">Week 3</span>
+    </div>
+    <div class="gallery-item featured" data-cat="regular" data-index="gd3" style="--badge-bg:var(--red)">
+      <img src=".\Pictures Good\Week 4 Homecoming graphic Gameday - St. Ambrose with coral YESSSS.png" alt="Week 4 — Homecoming vs. St. Ambrose" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">Week 4 — Homecoming vs. St. Ambrose</span></div>
+      <span class="gallery-badge">Homecoming</span>
+    </div>
+    <div class="gallery-item" data-cat="regular" data-index="gd4" style="--badge-bg:var(--red)">
+      <img src=".\Pictures Good\Week 5 Gam3day - William Penn w no WP sign or text.png" alt="Week 5 — vs. William Penn" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">Week 5 — vs. William Penn</span></div>
+      <span class="gallery-badge">Week 5</span>
+    </div>
+    <div class="gallery-item" data-cat="regular" data-index="gd5" style="--badge-bg:var(--red)">
+      <img src=".\Pictures Good\Bye Week original.png" alt="Bye Week" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">Bye Week</span></div>
+      <span class="gallery-badge">Bye Week</span>
+    </div>
+    <div class="gallery-item" data-cat="regular" data-index="gd6" style="--badge-bg:var(--red)">
+      <img src=".\Pictures Good\Week 6 Game Day - Peru State Night Game Final.png" alt="Week 6 — Night Game vs. Peru State" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">Week 6 — Night Game vs. Peru State</span></div>
+      <span class="gallery-badge">Week 6</span>
+    </div>
+    <div class="gallery-item" data-cat="regular" data-index="gd7" style="--badge-bg:var(--red)">
+      <img src=".\Pictures Good\Week 7 Game Day - Mid America Nazarene Final.png" alt="Week 7 — MidAmerica Nazarene" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">Week 7 — MidAmerica Nazarene</span></div>
+      <span class="gallery-badge">Week 7</span>
+    </div>
+    <div class="gallery-item featured" data-cat="regular" data-index="gd8" style="--badge-bg:var(--red)">
+      <img src=".\Pictures Good\Week 8 Game Day - Graceland.png" alt="Week 8 — vs. Graceland" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">Week 8 — vs. Graceland</span></div>
+      <span class="gallery-badge">Week 8</span>
+    </div>
+    <div class="gallery-item" data-cat="regular" data-index="gd9" style="--badge-bg:var(--red)">
+      <img src=".\Pictures Good\Week 9 Game Day - Culver-Stockton College Test.png" alt="Week 9 — Senior Day vs. Culver-Stockton" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">Week 9 — Senior Day vs. Culver-Stockton</span></div>
+      <span class="gallery-badge">Senior Day</span>
+    </div>
+    <div class="gallery-item" data-cat="regular" data-index="gd10" style="--badge-bg:var(--red)">
+      <img src=".\Pictures Good\Week 10 Gameday - Clarke Actual.png" alt="Week 10 — vs. Clarke" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">Week 10 — vs. Clarke</span></div>
+      <span class="gallery-badge">Week 10</span>
+    </div>
+    <div class="gallery-item" data-cat="playoffs" data-index="gd11" style="--badge-bg:var(--red)">
+      <img src=".\Pictures Good\Round 2 Update Post - Test.png" alt="Playoffs — Round 2 Update" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">Playoffs — Round 2 Update</span></div>
+      <span class="gallery-badge">R2 Update</span>
+    </div>
+    <div class="gallery-item featured" data-cat="playoffs" data-index="gd12" style="--badge-bg:var(--red)">
+      <img src=".\Pictures Good\Week 11 Gameday - Round 2 Final.png" alt="Round 2 — vs. Saint Francis" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">Round 2 — vs. Saint Francis</span></div>
+      <span class="gallery-badge">Round 2</span>
+    </div>
+    <div class="gallery-item" data-cat="playoffs" data-index="gd13" style="--badge-bg:var(--red)">
+      <img src=".\Pictures Good\Quarter Finals Update Post.png" alt="Quarterfinals Update Post" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">Quarterfinals Update Post</span></div>
+      <span class="gallery-badge">QF Update</span>
+    </div>
+    <div class="gallery-item" data-cat="playoffs" data-index="gd14" style="--badge-bg:var(--red)">
+      <img src=".\Pictures Good\Week 12 Gameday - Quarterfinals Final.png" alt="Quarterfinals — vs. Lindsey Wilson" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">Quarterfinals — vs. Lindsey Wilson</span></div>
+      <span class="gallery-badge">Quarters</span>
+    </div>
+    <div class="gallery-item" data-cat="playoffs" data-index="gd15" style="--badge-bg:var(--red)">
+      <img src=".\Pictures Good\SemiFinals Update Post.png" alt="Semifinals Update Post" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">Semifinals Update Post</span></div>
+      <span class="gallery-badge">SF Update</span>
+    </div>
+    <div class="gallery-item featured" data-cat="playoffs" data-index="gd16" style="--badge-bg:var(--red)">
+      <img src=".\Pictures Good\Week 13 Game Day - Semifinals.png" alt="Semifinals — vs. Benedictine" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">Semifinals — vs. Benedictine</span></div>
+      <span class="gallery-badge">Semis</span>
+    </div>
+    <div class="gallery-item" data-cat="championship" data-index="gd17" style="--badge-bg:var(--red)">
+      <img src=".\Pictures Good\Natty Bound.png" alt="Natty Bound — Fort Worth, TX" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">Natty Bound — Fort Worth, TX</span></div>
+      <span class="gallery-badge">Natty Bound</span>
+    </div>
+    <div class="gallery-item featured" data-cat="championship" data-index="gd18" style="--badge-bg:var(--red)">
+      <img src=".\Pictures Good\Natty Game.png" alt="NAIA National Championship 2025" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">NAIA National Championship 2025</span></div>
+      <span class="gallery-badge">NATTY</span>
+    </div>
+    <div class="gallery-item featured" data-cat="championship" data-index="gd19" style="--badge-bg:var(--red)">
+      <img src=".\Pictures Good\football final score natty.PNG" alt="2025 NAIA Football National Championship Final Score">
+      <div class="gallery-overlay"><span class="gallery-label">2025 NAIA Football National Championship - Final Score</span></div>
+      <span class="gallery-badge">Final Score</span>
+    </div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="awardPanel">
+      <div class="gallery-grid" id="awardGrid">
+    <div class="gallery-item featured" data-cat="championship" data-index="fa0" style="--badge-bg:#7a5c00">
+      <img src=".\Pictures Good\Natty Champs- 25 even less gray.png" alt="2025 NAIA Football National Champions" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">2025 NAIA Football National Champions</span></div>
+      <span class="gallery-badge">🏆 Champions</span>
+    </div>
+    <div class="gallery-item featured" data-cat="awards" data-index="fa1" style="--badge-bg:#7a5c00">
+      <img src=".\Pictures Good\Waring Poty.png" alt="Jackson Waring — 2x NAIA Player of the Year" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">Jackson Waring — 2x NAIA Player of the Year</span></div>
+      <span class="gallery-badge">NAIA POTY</span>
+    </div>
+    <div class="gallery-item" data-cat="awards" data-index="fa2" style="--badge-bg:#7a5c00">
+      <img src=".\Pictures Good\2nd Day HOA CHAMPIONSHIP.png" alt="Jackson Waring — Heart of America North POTY" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">Jackson Waring — Heart of America North POTY</span></div>
+      <span class="gallery-badge">HOAC POTY</span>
+    </div>
+    <div class="gallery-item featured" data-cat="awards" data-index="fa3" style="--badge-bg:#7a5c00">
+      <img src=".\Pictures Good\Cliff Harris Graphic.png" alt="Cliff Harris Award Finalists — Dryo & Filer" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">Cliff Harris Award Finalists — Dryo & Filer</span></div>
+      <span class="gallery-badge">Cliff Harris</span>
+    </div>
+    <div class="gallery-item" data-cat="awards" data-index="fa4" style="--badge-bg:#7a5c00">
+      <img src=".\Pictures Good\T-Mart Def Assistant.png" alt="Tyler Martin — Defensive Assistant of the Year" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">Tyler Martin — Defensive Assistant of the Year</span></div>
+      <span class="gallery-badge">Def. Asst.</span>
+    </div>
+    <div class="gallery-item" data-cat="awards" data-index="fa5" style="--badge-bg:#7a5c00">
+      <img src=".\Pictures Good\1st win graphic.png" alt="EJ Peterson — 1st Career Win" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">EJ Peterson — 1st Career Win</span></div>
+      <span class="gallery-badge">1st Career Win</span>
+    </div>
+    <div class="gallery-item featured" data-cat="awards" data-index="fa6" style="--badge-bg:#7a5c00">
+      <img src=".\Pictures Good\Waring Finalist.png" alt="Jackson Waring — William V. Campbell Finalist" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">Jackson Waring — William V. Campbell Finalist</span></div>
+      <span class="gallery-badge">W.V. Campbell</span>
+    </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── OTHER TAB ── -->
+  <div class="tab-panel" id="otherTab">
+    <div class="tab-nav" id="otherSubTabs" style="margin-bottom:40px;border-color:rgba(255,255,255,.05);">
+      <button class="tab-btn active" data-tab="wrestlingPanel">Wrestling</button>
+      <button class="tab-btn" data-tab="soccerPanel">Soccer</button>
+    </div>
+
+    <!-- WRESTLING -->
+    <div class="tab-panel active" id="wrestlingPanel">
+      <div class="gallery-filter">
+        <button class="filter-btn active" data-filter="all" data-grid="wrestlingGrid">All</button>
+        <button class="filter-btn" data-filter="championship" data-grid="wrestlingGrid">Championship</button>
+        <button class="filter-btn" data-filter="gameday" data-grid="wrestlingGrid">Event Graphics</button>
+        <button class="filter-btn" data-filter="awards" data-grid="wrestlingGrid">Award Graphics</button>
+      </div>
+      <div class="gallery-grid" id="wrestlingGrid">
+    <div class="gallery-item featured" data-cat="championship" data-index="wr0" style="--badge-bg:var(--red)">
+      <img src=".\Pictures Good\Natty Champs 2026 W Canvas.png" alt="2026 NAIA Wrestling National Champions" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">2026 NAIA Wrestling National Champions</span></div>
+      <span class="gallery-badge">🏆 2026 Natty</span>
+    </div>
+    <div class="gallery-item featured" data-cat="gameday" data-index="wr1" style="--badge-bg:var(--red)">
+      <img src=".\Pictures Good\dUAL graphic 3.png" alt="Dual 3 — #1 Grand View vs Missouri Valley" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">Dual 3 — #1 Grand View vs Missouri Valley</span></div>
+      <span class="gallery-badge">Dual 3</span>
+    </div>
+    <div class="gallery-item" data-cat="gameday" data-index="wr2" style="--badge-bg:var(--red)">
+      <img src=".\Pictures Good\Reno Invitational.png" alt="Reno Tournament of Champions — 12.21.25" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">Reno Tournament of Champions — 12.21.25</span></div>
+      <span class="gallery-badge">Reno TOC</span>
+    </div>
+    <div class="gallery-item" data-cat="gameday" data-index="wr3" style="--badge-bg:var(--red)">
+      <img src=".\Pictures Good\Roger Denker Open.png" alt="Roger Denker Open — 01.18.26" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">Roger Denker Open — 01.18.26</span></div>
+      <span class="gallery-badge">Roger Denker</span>
+    </div>
+    <div class="gallery-item featured" data-cat="awards" data-index="wr4" style="--badge-bg:var(--red)">
+      <img src=".\Pictures Good\1st win graphic - Hendo.png" alt="Grant Henderson — First Career Dual Win" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">Grant Henderson — First Career Dual Win</span></div>
+      <span class="gallery-badge">1st Career Win</span>
+    </div>
+    <div class="gallery-item" data-cat="awards" data-index="wr5" style="--badge-bg:var(--red)">
+      <img src=".\Pictures Good\Wrestler of the year - Cam Robinson.png" alt="Cam Robinson — Wrestler of the Year" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">Cam Robinson — Wrestler of the Year</span></div>
+      <span class="gallery-badge">Wrestler OTY</span>
+    </div>
+    <div class="gallery-item" data-cat="awards" data-index="wr6" style="--badge-bg:var(--red)">
+      <img src=".\Pictures Good\Freshman of the year - Reese Courtney.png" alt="Reese Courtney — Freshman of the Year" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">Reese Courtney — Freshman of the Year</span></div>
+      <span class="gallery-badge">Frosh OTY</span>
+    </div>
+    <div class="gallery-item featured" data-cat="awards" data-index="wr7" style="--badge-bg:var(--red)">
+      <img src=".\Pictures Good\GK World team Final.png" alt="Garavous Kouekabakilaho — U23 World Championships" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">Garavous Kouekabakilaho — U23 World Championships</span></div>
+      <span class="gallery-badge">U23 Worlds</span>
+    </div>
+    <div class="gallery-item" data-cat="awards" data-index="wr8" style="--badge-bg:var(--red)">
+      <img src=".\Pictures Good\World Team Wrestling Final.png" alt="Mayangalie Colon — World Team Wrestling" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">Mayangalie Colon — World Team Wrestling</span></div>
+      <span class="gallery-badge">World Team</span>
+    </div>
+    <div class="gallery-item" data-cat="awards" data-index="wr9" style="--badge-bg:var(--red)">
+      <img src=".\Pictures Good\4X All American - Catie Campbell.png" alt="Catie Campbell — 4x All-American" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">Catie Campbell — 4x All-American</span></div>
+      <span class="gallery-badge">4x All-American</span>
+    </div>
+    <div class="gallery-item featured" data-cat="awards" data-index="wr10" style="--badge-bg:var(--red)">
+      <img src=".\Pictures Good\Catie Campbell - 100 Career Wins.png" alt="Catie Campbell — 100 Career Wins" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">Catie Campbell — 100 Career Wins</span></div>
+      <span class="gallery-badge">100 Career Wins</span>
+    </div>
+      </div>
+    </div>
+
+    <!-- SOCCER -->
+    <div class="tab-panel" id="soccerPanel">
+      <div class="gallery-grid" id="soccerGrid">
+    <div class="gallery-item featured" data-cat="awards" data-index="so0" style="--badge-bg:var(--red)">
+      <img src=".\Pictures Good\Kevin Ventura.jpg" alt="Kevin Ventura — NAIA Player of the Year" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">Kevin Ventura — NAIA Player of the Year</span></div>
+      <span class="gallery-badge">NAIA POTY</span>
+    </div>
+    <div class="gallery-item featured" data-cat="awards" data-index="so1" style="--badge-bg:var(--red)">
+      <img src=".\Pictures Good\Luis Helm.jpg" alt="Luis Helm — NAIA Most Valuable Defensive Player" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">Luis Helm — NAIA Most Valuable Defensive Player</span></div>
+      <span class="gallery-badge">NAIA DPOY</span>
+    </div>
+    <div class="gallery-item" data-cat="awards" data-index="so2" style="--badge-bg:var(--red)">
+      <img src=".\Pictures Good\Groves Coach of the Year.png" alt="David Groves — NAIA Coach of the Year" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">David Groves — NAIA Coach of the Year</span></div>
+      <span class="gallery-badge">Coach OTY</span>
+    </div>
+    <div class="gallery-item" data-cat="awards" data-index="so3" style="--badge-bg:var(--red)">
+      <img src=".\Pictures Good\Justin Figaroa.png" alt="Justin Figaroa — Men's Aruba National Team" loading="lazy">
+      <div class="gallery-overlay"><span class="gallery-label">Justin Figaroa — Men's Aruba National Team</span></div>
+      <span class="gallery-badge">National Team</span>
+    </div>
+    <div class="gallery-item featured" data-cat="championship" data-index="so4" style="--badge-bg:var(--red)">
+      <img src=".\Pictures Good\soc natty.PNG" alt="2025 NAIA Mens Soccer National Champions">
+      <div class="gallery-overlay"><span class="gallery-label">2025 NAIA Mens Soccer National Champions</span></div>
+      <span class="gallery-badge">Natty</span>
+    </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="management">
+  <div class="section-header reveal"><span class="section-num">03</span><h2 class="section-title">Experience</h2><div class="section-line"></div></div>
+  <div class="exp-layout">
+    <div class="timeline reveal">
+      <div class="timeline-item">
+        <div class="timeline-date">May 2025 — Present</div>
+        <div class="timeline-role">Asst. Sports Information Director / Graphic Designer</div>
+        <div class="timeline-org">Grand View University · Des Moines, IA</div>
+        <div class="timeline-desc">Graphic designer for all 28 athletic programs — gameday graphics, award announcements, event promotions, and social content across football, wrestling, soccer, and more. Manages stat entry, updates the athletics website, and communicates with the Heart of America Athletic Conference and NAIA on behalf of a program with 21 national championships.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">January 2025 — May 2025</div>
+        <div class="timeline-role">Sports Information Intern</div>
+        <div class="timeline-org">Grand View University · Des Moines, IA</div>
+        <div class="timeline-desc">Assisted the SID with replay cameras, music production, livestream operations, article writing, statistical entry, and management of the backend online ticketing platform.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">June 2023 — May 2025</div>
+        <div class="timeline-role">Graduate Assistant of Athletics</div>
+        <div class="timeline-org">Grand View University · Des Moines, IA</div>
+        <div class="timeline-desc">On-site administrator for athletic events, managed 70+ student employees, operated the front-end online ticketing system, and assisted with sponsorships, donations, and fundraising — all while the program secured 6 national championships during this period.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">April 2023</div>
+        <div class="timeline-role">Event Staff</div>
+        <div class="timeline-org">NAIA Men's Volleyball National Championship</div>
+        <div class="timeline-desc">Managed hospitality operations and admissions throughout the entire national championship event.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">May 2020 — August 2020</div>
+        <div class="timeline-role">Fastpitch Operations Intern</div>
+        <div class="timeline-org">Fastpitch Operations</div>
+        <div class="timeline-desc">Coordinated, set up, and managed national fastpitch softball events from start to finish.</div>
+      </div>
+    </div>
+    <div class="exp-collage reveal">
+      <div class="collage-item"><img src="Pictures Good/12 20 2025 GVU FB NAIAFinals 159.jpg" alt="NAIA Football Championship"></div>
+      <div class="collage-item"><img src="Pictures Good/IMG_4107.jpeg" alt="Championship celebration"></div>
+      <div class="collage-item"><img src="Pictures Good/3 17 2025 bball Baker 128.jpg" alt="Press box team"></div>
+      <div class="collage-item"><img src="Pictures Good/IMG_8084.jpeg" alt="National Champion trophy"></div>
+      <div class="collage-item"><img src="Pictures Good/2 8 2025 GVU Mwre MoBaptist 62.jpg" alt="Wrestling event"></div>
+      <div class="collage-item"><img src="Pictures Good/IMG_4377.jpeg" alt="GV Athletics"></div>
+      <div class="collage-item"><img src="Pictures Good/4 25 2025 GVU WTF MTF Seniors 24.jpg" alt="Track and Field Seniors"></div>
+      <div class="collage-item"><img src="Pictures Good/IMG_6837.jpeg" alt="GV Athletics"></div>
+      <div class="collage-item"><img src="Pictures Good/1 3 2026 GVU WBB CMU 75.jpg" alt="Scorer's table"></div>
+      <div class="collage-item"><img src="Pictures Good/IMG_5362.jpg" alt="GV team"></div>
+      <div class="collage-item"><img src="Pictures Good/IMG_4142.jpeg" alt="GV Athletics event"></div>
+      <div class="collage-item"><img src="Pictures Good/IMG_6840.jpeg" alt="GV Athletics"></div>
+      <div class="collage-item"><img src="Pictures Good/2 11 2026 GVU MBB Park 33.jpg" alt="Basketball game"></div>
+      <div class="collage-item"><img src="Pictures Good/IMG_4339.jpeg" alt="GV event"></div>
+      <div class="collage-item"><img src="Pictures Good/12 19 2025 GVU FB Practice 38.jpg" alt="Football practice"></div>
+      <div class="collage-item"><img src="Pictures Good/Group.jpeg" alt="Group photo with National Champion trophy"></div>
+    </div>
+  </div>
+  <div class="section-header reveal" style="margin-top:72px"><span class="section-num">04</span><h2 class="section-title">Education</h2><div class="section-line"></div></div>
+  <div class="edu-grid reveal">
+    <div class="edu-card"><div class="edu-degree">Master of Science</div><div class="edu-school">Grand View University</div><div class="edu-years">August 2023 – June 2025</div><div class="edu-degree" style="margin-bottom:4px">Sport Management</div><div class="edu-gpa">3.92</div><div class="edu-gpa-label">GPA</div></div>
+    <div class="edu-card"><div class="edu-degree">Bachelor of Science</div><div class="edu-school">Florida Institute of Technology</div><div class="edu-years">August 2019 – May 2022</div><div class="edu-degree" style="margin-bottom:4px">Sport Administration · Business Minor</div><div class="edu-gpa">3.60</div><div class="edu-gpa-label">GPA</div></div>
+    <div class="edu-card"><div class="edu-degree">Associate of Arts</div><div class="edu-school">Southwestern Community College</div><div class="edu-years">January 2017 – May 2019</div><div class="edu-degree" style="margin-bottom:4px">General Studies</div><div class="edu-gpa" style="font-size:1.4rem;line-height:2">Men's Golf Team</div><div class="edu-gpa-label">2018 – 2019</div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header reveal"><span class="section-num">05</span><h2 class="section-title">Contact</h2><div class="section-line"></div></div>
+  <div class="contact-layout">
+    <div class="contact-info reveal">
+      <h3>Let's Work Together</h3>
+      <p>Looking to collaborate on sports branding, graphic design, or athletic operations? Whether it's a full season of gameday graphics or a sports management role, I'd love to connect.</p>
+      <div class="contact-detail"><div class="contact-icon"><svg viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg></div><span class="contact-val">kjsgolfer1@gmail.com</span></div>
+      <div class="contact-detail"><div class="contact-icon"><svg viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg></div><span class="contact-val">(641) 745-7234</span></div>
+      <div class="contact-detail"><div class="contact-icon"><svg viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg></div><span class="contact-val">Des Moines, IA</span></div>
+      <a href="#" class="resume-download"><svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>Download Resume</a>
+    </div>
+    <form class="contact-form reveal" onsubmit="handleSubmit(event)">
+      <div class="form-row">
+        <div class="form-group"><label>First Name</label><input type="text" placeholder="Jane"></div>
+        <div class="form-group"><label>Last Name</label><input type="text" placeholder="Doe"></div>
+      </div>
+      <div class="form-group"><label>Email</label><input type="email" placeholder="jane@example.com"></div>
+      <div class="form-group"><label>Subject</label><select><option value="">Select a topic...</option><option>Graphic Design Collaboration</option><option>Sports Management Role</option><option>Event Operations</option><option>General Inquiry</option></select></div>
+      <div class="form-group"><label>Message</label><textarea placeholder="Tell me about the opportunity..."></textarea></div>
+      <button type="submit" class="form-submit">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">K<span>.</span>SOMERS</div>
+  <div class="footer-copy">&copy; 2025-2026 Kyle Somers &middot; Sports Management &amp; Graphic Design &middot; Grand View University &mdash; 21x NAIA Champions</div>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <span class="lightbox-close" onclick="closeLightbox()">CLOSE &times;</span>
+  <span class="lightbox-nav lightbox-prev" onclick="lightboxNav(-1)">&#8249;</span>
+  <img id="lightboxImg" src="" alt="">
+  <span class="lightbox-nav lightbox-next" onclick="lightboxNav(1)">&#8250;</span>
+</div>
+
+<script>
+  // Reveal
+  const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')}),{threshold:.08});
+  document.querySelectorAll('.reveal').forEach(r=>ro.observe(r));
+  const so=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.querySelectorAll('.skill-bar-fill').forEach(b=>b.classList.add('animated'))}),{threshold:.3});
+  document.querySelectorAll('.about-skills').forEach(s=>so.observe(s));
+
+  // Generic tab init — handles both top-level and nested tab groups
+  function initTabGroup(navId) {
+    const nav = document.getElementById(navId);
+    if (!nav) return;
+    nav.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        nav.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        const target = btn.dataset.tab;
+        // panels are siblings of the nav inside the same parent
+        const parent = nav.parentElement;
+        parent.querySelectorAll(':scope > .tab-panel').forEach(p => {
+          p.classList.toggle('active', p.id === target);
+        });
+      });
+    });
+  }
+  ['sportTabs','footballSubTabs','otherSubTabs'].forEach(initTabGroup);
+
+  // Gallery filter
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const gridId = btn.dataset.grid;
+      document.querySelectorAll(`[data-grid="${gridId}"]`).forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      document.querySelectorAll('#'+gridId+' .gallery-item').forEach(item => {
+        item.style.display = (f==='all'||item.dataset.cat===f) ? '' : 'none';
+      });
+    });
+  });
+
+  // Lightbox
+  let lbItems=[], lbCur=0;
+  document.querySelectorAll('.gallery-grid').forEach(grid => {
+    const items = Array.from(grid.querySelectorAll('.gallery-item'));
+    items.forEach((item,idx) => {
+      item.addEventListener('click', () => {
+        lbItems=items; lbCur=idx;
+        document.getElementById('lightboxImg').src=item.querySelector('img').src;
+        document.getElementById('lightbox').classList.add('open');
+      });
+    });
+  });
+  function closeLightbox(){document.getElementById('lightbox').classList.remove('open');}
+  function lightboxNav(d){
+    const vis=lbItems.filter(i=>i.style.display!=='none');
+    const ci=vis.indexOf(lbItems[lbCur]);
+    const n=(ci+d+vis.length)%vis.length;
+    lbCur=lbItems.indexOf(vis[n]);
+    document.getElementById('lightboxImg').src=vis[n].querySelector('img').src;
+  }
+  document.getElementById('lightbox').addEventListener('click',function(e){if(e.target===this)closeLightbox();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox();if(e.key==='ArrowLeft')lightboxNav(-1);if(e.key==='ArrowRight')lightboxNav(1);});
+  function handleSubmit(e){
+    e.preventDefault();
+    const btn=e.target.querySelector('.form-submit');
+    btn.textContent='Message Sent ✓';btn.style.background='#1a6b1a';
+    setTimeout(()=>{btn.textContent='Send Message';btn.style.background='';e.target.reset();},3000);
+  }
+  function toggleNav(){
+    const nav=document.getElementById('navLinks');
+    const btn=document.getElementById('hamburger');
+    nav.classList.toggle('open');
+    btn.classList.toggle('open');
+  }
+  function closeNav(){
+    document.getElementById('navLinks').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+  }
+</script>
+</body>
+</html>
